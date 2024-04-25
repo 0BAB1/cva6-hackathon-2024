@@ -414,6 +414,9 @@ package ariane_pkg;
     LB,
     SB,
     LBU,
+    // Load Byte Cvxif
+    LBC,
+    LBCU,
     // Atomic Memory Operations
     AMO_LRW,
     AMO_LRD,
@@ -1005,7 +1008,8 @@ package ariane_pkg;
         return 2'b10;
       end
       LH, LHU, SH, FLH, FSH: return 2'b01;
-      LB, LBU, SB, FLB, FSB: return 2'b00;
+      // Added BEs for LBC & LBCU
+      LB, LBU, SB, FLB, FSB, LBC, LBCU: return 2'b00;
       default:               return 2'b11;
     endcase
   endfunction

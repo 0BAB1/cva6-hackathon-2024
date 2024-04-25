@@ -34,8 +34,67 @@ static void macsOnRange(const UDATA_T* __restrict inputs,
                         int nb_iterations)
 {
     for (int iter = 0; iter < nb_iterations; ++iter) {
+        /*
+        asm volatile ("mul %0, %1, %2"
+            : "=r" (transitionValue)
+            : "r" (inputs[iter]), "r" (weights[iter]));
+
+        asm volatile ("add %0, %1, %2"
+            : "=r" (*weightedSum)
+            : "r" (*weightedSum), "r" (transitionValue));
+        */
+
+        asm volatile ("lbc x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+
+        asm volatile ("lbcu x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+
+        asm volatile ("lb x0, 0(%0)"
+                        :
+                        : "r" (weightedSum));
+
+        asm volatile ("lbcu x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+
+        asm volatile ("lb x0, 0(%0)"
+                        :
+                        : "r" (*weightedSum)); 
+
+        asm volatile ("lbu x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+       
         *weightedSum += inputs[iter] * weights[iter];
+
+        asm volatile ("lb x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+
+        asm volatile ("lb x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+
+        asm volatile ("lbu x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+        
     }
+    asm volatile ("lbcu x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+
+        asm volatile ("lb x0, 0(%0)"
+                        :
+                        : "r" (weightedSum)); 
+
+        asm volatile ("lbu x0, 0(%0)"
+                        :
+                        : "r" (weightedSum));
+    
 }
 
 static UDATA_T saturate(SUM_T value, uint32_t sat) {

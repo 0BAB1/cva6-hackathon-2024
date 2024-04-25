@@ -452,7 +452,8 @@ module load_unit
 
 
   // prepare these signals for faster selection in the next cycle
-  assign rdata_is_signed    =   ldbuf_rdata.operation inside {ariane_pkg::LW,  ariane_pkg::LH,  ariane_pkg::LB};
+  // Added LBC as signed
+  assign rdata_is_signed    =   ldbuf_rdata.operation inside {ariane_pkg::LW,  ariane_pkg::LH,  ariane_pkg::LB, ariane_pkg::LBC};
   assign rdata_is_fp_signed =   ldbuf_rdata.operation inside {ariane_pkg::FLW, ariane_pkg::FLH, ariane_pkg::FLB};
   assign rdata_offset       = ((ldbuf_rdata.operation inside {ariane_pkg::LW,  ariane_pkg::FLW}) & riscv::IS_XLEN64) ? ldbuf_rdata.address_offset + 3 :
                                 ( ldbuf_rdata.operation inside {ariane_pkg::LH,  ariane_pkg::FLH})                     ? ldbuf_rdata.address_offset + 1 :
@@ -474,7 +475,8 @@ module load_unit
       result_o = {{riscv::XLEN - 32{rdata_sign_bit}}, shifted_data[31:0]};
       ariane_pkg::LH, ariane_pkg::LHU:
       result_o = {{riscv::XLEN - 32 + 16{rdata_sign_bit}}, shifted_data[15:0]};
-      ariane_pkg::LB, ariane_pkg::LBU:
+      // Added LBC and LBCU in result MUX
+      ariane_pkg::LB, ariane_pkg::LBU, ariane_pkg::LBC, ariane_pkg::LBCU:
       result_o = {{riscv::XLEN - 32 + 24{rdata_sign_bit}}, shifted_data[7:0]};
       ariane_pkg::FLW: begin
         if (CVA6Cfg.FpPresent) begin
