@@ -134,7 +134,10 @@ module cva6
     input cvxif_resp_t cvxif_resp_i,
     // memory side
     output noc_req_t noc_req_o,
-    input noc_resp_t noc_resp_i
+    input noc_resp_t noc_resp_i,
+    // to CV-X-IF
+    output logic                commit_ack_to_cvxif,
+    output scoreboard_entry_t   commit_sbe_to_cvxif
 );
 
   // ------------------------------------------
@@ -643,6 +646,10 @@ module cva6
       .lsu_addr_trans_id_i(lsu_addr_trans_id),
       .*
   );
+
+  // Assign commit signals (to cvxif)
+  assign commit_ack_to_cvxif = commit_ack;
+  assign commit_sbe_to_cvxif = commit_instr_id_commit;
 
   // ---------
   // EX
