@@ -12,11 +12,14 @@
 module cvxif_example_coprocessor
   import cvxif_pkg::*;
   import cvxif_instr_pkg::*;
+  import ariane_pkg::*;
 (
-    input  logic        clk_i,        // Clock
-    input  logic        rst_ni,       // Asynchronous reset active low
-    input  cvxif_req_t  cvxif_req_i,
-    output cvxif_resp_t cvxif_resp_o
+    input  logic                clk_i,        // Clock
+    input  logic                rst_ni,       // Asynchronous reset active low
+    input  cvxif_req_t          cvxif_req_i,
+    output cvxif_resp_t         cvxif_resp_o,
+    input  logic                commit_ack_i, // commit_ack from commit stage
+    input  scoreboard_entry_t   commit_sbe_i  // from scoreboard 
 );
 
   //Compressed interface
