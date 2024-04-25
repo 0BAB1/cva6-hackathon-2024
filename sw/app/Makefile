@@ -54,8 +54,7 @@ bmarks = \
 	dhrystone \
 	spmv \
 	pmp \
-	mnist \
-	hugo_test
+	mnist
 
 #--------------------------------------------------------------------
 # Build rules
