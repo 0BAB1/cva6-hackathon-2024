@@ -12,8 +12,6 @@
 # Author:         Sebastien Jacq - sjthales on github.com
 
 #
-# Additional contributions by:
-#
 #
 # script Name:    run_cva6_fpga
 # Project Name:   CVA6 softcore
@@ -60,6 +58,7 @@ set_property include_dirs { \
 	"../register_interface/include" \
 } [current_fileset]
 
+read_verilog -sv {../../core/cvxif_example/cvxif_registers.sv}
 source scripts/add_sources.tcl
 
 set_property top cva6_zybo_z7_20 [current_fileset]
