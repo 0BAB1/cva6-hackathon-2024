@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado" Owner="rootmin" Host="rootmin-Nitro-AN515-57" Pid="91803" HostCore="12" HostMemory="24372528">
+    </Process>
+</ProcessHandle>
+<?xml version="1.0"?>
+<ProcessHandle Version="1" Minor="0">
+    <Process Command="vivado" Owner="rootmin" Host="rootmin-Nitro-AN515-57" Pid="139941" HostCore="12" HostMemory="24372528">
+    </Process>
+</ProcessHandle>

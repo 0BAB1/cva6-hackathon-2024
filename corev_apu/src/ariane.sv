@@ -46,8 +46,11 @@ module ariane import ariane_pkg::*; #(
   input  noc_resp_t                    noc_resp_i
 );
 
-  cvxif_pkg::cvxif_req_t  cvxif_req;
-  cvxif_pkg::cvxif_resp_t cvxif_resp;
+  cvxif_pkg::cvxif_req_t    cvxif_req;
+  cvxif_pkg::cvxif_resp_t   cvxif_resp;
+  // SCOREBOARD <-> CV-X-IF
+  logic                     commit_ack_cva6_cvxif;
+  scoreboard_entry_t        commit_sbe_cva6_cvxif;
 
   cva6 #(
     .CVA6Cfg ( CVA6Cfg ),
@@ -71,7 +74,9 @@ module ariane import ariane_pkg::*; #(
     .cvxif_req_o          ( cvxif_req                 ),
     .cvxif_resp_i         ( cvxif_resp                ),
     .noc_req_o            ( noc_req_o                 ),
-    .noc_resp_i           ( noc_resp_i                )
+    .noc_resp_i           ( noc_resp_i                ),
+    .commit_ack_to_cvxif  ( commit_ack_cva6_cvxif     ),
+    .commit_sbe_to_cvxif  ( commit_sbe_cva6_cvxif     )
   );
 
   if (CVA6Cfg.CvxifEn) begin : gen_example_coprocessor
@@ -79,7 +84,9 @@ module ariane import ariane_pkg::*; #(
       .clk_i                ( clk_i                          ),
       .rst_ni               ( rst_ni                         ),
       .cvxif_req_i          ( cvxif_req                      ),
-      .cvxif_resp_o         ( cvxif_resp                     )
+      .cvxif_resp_o         ( cvxif_resp                     ),
+      .commit_ack_i         ( commit_ack_cva6_cvxif          ),
+      .commit_sbe_i         ( commit_sbe_cva6_cvxif          )
     );
   end
 
