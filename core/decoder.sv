@@ -811,10 +811,10 @@ module decoder
             3'b101: instruction_o.op = ariane_pkg::LHU;
             3'b110:
             if (riscv::XLEN == 64) instruction_o.op = ariane_pkg::LWU;
-            else illegal_instr = 1'b1;
+            else instruction_o.op = ariane_pkg::LBC;
             3'b011:
             if (riscv::XLEN == 64) instruction_o.op = ariane_pkg::LD;
-            else illegal_instr = 1'b1;
+            else instruction_o.op = ariane_pkg::LBCU;
             default: illegal_instr = 1'b1;
           endcase
         end
