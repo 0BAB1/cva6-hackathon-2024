@@ -2,7 +2,7 @@
 // Desc : cvxif non-addressed registers
 
 module cvxif_registers #(
-    parameter Nb_of_regs = 150,
+    parameter Nb_of_regs,
     parameter signed_regs = 0,
     parameter reg_width = 9
 ) (
@@ -16,7 +16,9 @@ module cvxif_registers #(
     // actual data to load
     input logic [reg_width-1:0] wb_data_i,
     // register memory
-    output logic [Nb_of_regs-1:0][reg_width-1:0] regs_q
+    output logic [Nb_of_regs-1:0][reg_width-1:0] regs_q,
+    // output pointer to check when loading is finished
+    output logic [reg_width-1:0] wb_pointer_q
 );
 
 logic [reg_width-1:0] wb_pointer_q; // todo : fix this, supposed to be log_2(150)
