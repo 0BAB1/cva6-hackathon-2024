@@ -127,7 +127,8 @@ setup_sources_from_git()
 
 # Binutils
 echo "# Step 1: Obtaining sources of binutils-gdb..."
-setup_sources_from_git $BINUTILS_REPO $BINUTILS_DIR $BINUTILS_COMMIT
+# setup_sources_from_git $BINUTILS_REPO $BINUTILS_DIR $BINUTILS_COMMIT
+# hugo mofis : custom binutils added manually
 
 # GCC
 echo "# Step 2: Obtaining sources of GCC..."
