@@ -35,17 +35,9 @@ static void macsOnRange(const UDATA_T* __restrict inputs,
 {
     // SUM_T transitionValue;
     for (int iter = 0; iter < nb_iterations; ++iter) {
-        /*
-        asm volatile ("lb x0, 0(%0)"
-            :
-            : "r" (weights+iter)
-        );
-    
-        asm volatile ("lbu x0, 0(%0)"
-            :
-            : "r" (inputs+iter)
-        );
-        */
+
+        //*weightedSum = inputs[iter] * weights[iter];
+        
         asm volatile ("lbcu x0, %0"
             :
             : "m" (inputs[iter])
@@ -55,15 +47,6 @@ static void macsOnRange(const UDATA_T* __restrict inputs,
             :
             : "m" (weights[iter])
         );     
-        /*
-        asm volatile ("mul %0, %1, %2"
-            : "=r" (transitionValue)
-            : "r" (inputs[iter]), "r" ((signed)weights[iter]));
-
-        asm volatile ("add %0, %1, %2"
-            : "=r" (*weightedSum)
-            : "r" (*weightedSum), "r" (transitionValue));
-            */
     }
 
     asm volatile ("mac %0, %0, %1, x0"
