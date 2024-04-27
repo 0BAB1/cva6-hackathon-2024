@@ -1,3 +1,9 @@
+# CVA6 2023-2024 Hackathon
+
+SUPAERO TEAM
+
+(wip)
+
 # Getting started
 
 To get more familiar with CVA6 architecture, a partial documentation is available:
