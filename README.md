@@ -2,9 +2,45 @@
 
 SUPAERO TEAM
 
-(wip)
+This repo constains work done for the cva6 2023-2024 Hackathon.
 
-# Getting started
+This CVA6 version is designed to accelerate MNIST execution through hardware.
+
+./sw folder contains app example, including a simple MNIST forward propagation for 1 digit.
+
+## How to use it
+
+### Note ont building & flashing the bitstream
+
+To build the core and flash it onto a FPGA, you will find the original README by scrolling down this document,
+it explains everything you need to know to build the bitstream, and flash it onto an FPGA.
+
+### Take advantage of the design
+
+BEFORE BUILDING THE BISTREAM : be mindful of your layer and the max kernel sizes, this is useful as kernels gets loaded
+into a tighly coupled co-processor using SRAM. This SRAM should be as small a spossible so:
+
+- The values handled by your CNN should not exceed 8 bits (0-255).
+- You HAVE to specify the max kernel size in ./core/cvxif_example/cvxif_example_coprocessor.sv uder the "Nb_of_regs" parameter.
+
+Then, to take full advantage of this design based on a home-made TPU (Tensor Processing Unit), you need to tell
+the compiler a few specific things using assembly
+
+- First : load data in CVXIF using ... and ...
+- Then : Lunch ...
+- Finally : to further push performances, you can add load checks to avoid re-loading an already loaded kernel in memory
+
+### Building the software binaries
+
+RISC-V binaries are built using GCC and bintuils. Make sure to use the right toolchain by build a docker container using
+the techniques described below.
+
+The custom binutils sources are included in this repo if you wish do do it yourself. (./util/gcc-toolchain-builder/src/binutils-gdb/)
+
+Once the binaries built using the right technique & toolchain, you can look at you disassambly to check
+wether the ... instructions were successfully included.
+
+# ORIGINAL README : Getting started
 
 To get more familiar with CVA6 architecture, a partial documentation is available:
 
