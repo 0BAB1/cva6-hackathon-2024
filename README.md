@@ -24,11 +24,15 @@ into a tighly coupled co-processor using SRAM. This SRAM should be as small a sp
 - You HAVE to specify the max kernel size in ./core/cvxif_example/cvxif_example_coprocessor.sv uder the "Nb_of_regs" parameter.
 
 Then, to take full advantage of this design based on a home-made TPU (Tensor Processing Unit), you need to tell
-the compiler a few specific things using assembly
+the compiler a few specific things using inline assembly :
 
-- First : load data in CVXIF using ... and ...
-- Then : Lunch ...
+- First : load data in CVXIF using LBC and LBCU instructions
+- Then : Lunch MAC instruction (this will read tensor operation result form CV-X-IF and clear all of its registers)
 - Finally : to further push performances, you can add load checks to avoid re-loading an already loaded kernel in memory
+
+In this example, we modified the MNIST program (./sw/app/mnist/NetworkPropagate.c). 
+
+More infos in ./REPORT (See pdf article).
 
 ### Building the software binaries
 
