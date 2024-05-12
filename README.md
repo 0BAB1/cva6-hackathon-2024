@@ -2,6 +2,8 @@
 
 SUPAERO TEAM
 
+Best improvement : 33.4% on clock cycles.
+
 This repo constains work done for the cva6 2023-2024 Hackathon.
 
 This CVA6 version is designed to accelerate MNIST execution through hardware.
